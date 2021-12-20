@@ -3,8 +3,13 @@ app = Flask(__name__)
 
 
 @app.route('/')
+@app.route('/cv')
 def HomePage():
     return render_template('cv.html')
+
+@app.route('/newCV')
+def newCV():
+    return render_template('newCV.html')
 
 @app.route('/assignment8')
 def music():
