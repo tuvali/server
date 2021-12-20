@@ -1,0 +1,30 @@
+{% extends 'basic.html' %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+<h1> about me......</h1>
+<h1>profile details</h1>
+{% for key, value in profile.items() %}
+    <h2>{{ key }}:{{ value | upper() }}</h2>
+    {% endfor %}
+<h1> {{ profile.name }},{{ profile.second_name }}</h1>
+<p> University:{{ university  | default('unspecified' , true)}}</p>
+    <h2>Degreas:</h2>
+    <ol>
+        <li>{{ degree[0] }}</li>
+        <li>{{ degree[1] }}</li>
+        <li>{{ degree[1] }}</li>
+    </ol>
+    <h2>Hobbies:</h2>
+<ul>
+        {% for hobby in hobbies %}
+            <li>{{ hobby }}</li>
+        {% endfor %}
+    </ul>
+    <ul>
+        <li>{{ hobbies[0] }}</li>
+        <li>{{ hobbies[1] }}</li>
+        <li>{{ hobbies[2] }}</li>
+    </ul>
+{% endblock %}
