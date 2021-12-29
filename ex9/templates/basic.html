@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta %}
+    <link rel="stylesheet" href="../static/css/cv.css">
+    <script src="/static/cv.js"> </script>
+        <meta charset="UTF-8">
+    {% endblock %}
+
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+</head>
+<body>
+{% include 'header.html' %}
+{% block content %}
+   message from base
+{% endblock %}
+</body>
+</html>
