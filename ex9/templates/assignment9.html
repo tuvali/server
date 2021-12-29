@@ -1,0 +1,42 @@
+{% extends 'basic.html' %}
+{% block title %}
+assigment 9
+{% endblock %}
+
+
+{% block content %}
+    {% if username %}
+    <h1>Welcome back, {{ session.username }}</h1>
+    <form action="/assignment9" method="GET">
+        Search user: <input name="search" type="text">
+    <input type="submit">
+    </form>
+    {% if search=="" %}
+
+        <span>
+                {% for t in users.values() %}
+                    {% for x in t %}
+                        <h3>{{ x }}: {{ t[x]}}</h3>
+                    {% endfor %} <br>
+                {% endfor %}
+        </span>
+    {% else %}
+        {% for t in users.values() %}
+            {% for x in t %}
+                {% if search==t[x] %}
+                    {% for i in t %}
+                        <h3>{{ i }}: {{ t[i]}}</h3>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% else %}
+    <h1>Please Log in!</h1>
+    <form action="/assignment9" method="POST">
+        Username: <input name="username" type="text">
+        Password:<input name="password" type="password">
+    <input type="submit">
+    </form>
+{% endif %}
+{% endblock%}
