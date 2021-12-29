@@ -33,11 +33,13 @@ def music():
 def assignment9_func():
     print(users.values())
     if request.method == 'GET':
-        if 'search' in request.args:
-            search = request.args['search']
-            return render_template('assignment9.html', username=session['username']
-                                                     , search=search
-                                                     , users=users)
+        if session['username']:
+            if 'search' in request.args:
+                search = request.args['search']
+                return render_template('assignment9.html', username=session['username']
+                                                         , search=search
+                                                         , users=users)
+            return render_template('assignment9.html', users=users, username=session['username'])
         return render_template('assignment9.html', users=users)
     if request.method == 'POST':
 
@@ -46,7 +48,7 @@ def assignment9_func():
         Password = request.form['password']
         found = True
         if found:
-            session['username'] = request.form['username'] ## DELETE
+            session['username'] = username ## DELETE
             session['user_login'] = True  ##SESSION GLOBAL VARIABLE - CAN POST IN ANOTHER PAGES
             return render_template('assignment9.html', username=username, users=users)
         else:

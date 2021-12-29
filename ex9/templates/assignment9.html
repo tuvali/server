@@ -14,18 +14,18 @@ assigment 9
     {% if search=="" %}
 
         <span>
-                {% for t in users.values() %}
-                    {% for x in t %}
-                        <h3>{{ x }}: {{ t[x]}}</h3>
+                {% for u in users.values() %}
+                    {% for k in u %}
+                        <h3>{{ k }}: {{ u[k]}}</h3>
                     {% endfor %} <br>
                 {% endfor %}
         </span>
     {% else %}
-        {% for t in users.values() %}
-            {% for x in t %}
-                {% if search==t[x] %}
-                    {% for i in t %}
-                        <h3>{{ i }}: {{ t[i]}}</h3>
+        {% for u in users.values() %}
+            {% for k in u %}
+                {% if search==u[k] %}
+                    {% for i in u %}
+                        <h3>{{ i }}: {{ u[i]}}</h3>
                     {% endfor %}
                 {% endif %}
             {% endfor %}
