@@ -33,7 +33,7 @@ def music():
 def assignment9_func():
     print(users.values())
     if request.method == 'GET':
-        if session['username']:
+        if 'username' in session and session['username']:
             if 'search' in request.args:
                 search = request.args['search']
                 return render_template('assignment9.html', username=session['username']

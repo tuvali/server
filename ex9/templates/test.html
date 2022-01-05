@@ -1,0 +1,43 @@
+{% extends 'basic.html' %}
+{% block title %}
+{% endblock %}
+{% block content %}
+
+<h1>search Form:</h1>
+<h2>Please enter you Email or press "search" button to see all users</h2>
+<form name="search" method=GET" action="assignment9">
+    <input name="email" type="text" id="email" placeholder="enter your Email">
+    <input type="submit" value="search">
+</form>
+{% if search==True %}
+    {% if haveUser==false %}
+        <h2>try another mail</h2>
+    {% elif haveUser==true %}
+            <h2>INFO:</h2>
+            <span>
+                {% for t in users.values() %}
+                    {% for x in t %}
+                        {{ x }}: {{ t[x]}} <br>
+                    {% endfor %} <br>
+                {% endfor %}
+            </span>
+    {% endif %}
+{% endif %}
+
+
+{%if session['login'] == True%}
+    You can not register :(
+{% else %}
+    <hr>
+    <h1>Register Form:</h1>
+    <form name="register" method="POST" action="assignment9">
+        <h2> Fill in your details: </h2>
+        <input name="firstName" placeholder="First name">
+        <input name="lastName" placeholder="Last name">
+        <input name="email" type = email  placeholder="Email">
+        <input name="userName" placeholder="User name">
+        <input type="submit">
+    </form>
+{% endif %}
+
+{% endblock %}
