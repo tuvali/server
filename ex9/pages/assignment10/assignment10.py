@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, flash
+from flask import Blueprint, render_template, request, redirect, flash,session
 from interact_with_DB import interact_db
 
 # assignment10 blueprint definition
@@ -7,7 +7,7 @@ assignment10 = Blueprint('/assignment10', __name__, static_folder='static', stat
 
 # Routes
 @assignment10.route('/assignment10')
-def index():
+def users():
     query = 'select * from users;'
     users = interact_db(query=query, query_type='fetch')
     return render_template('assignment10.html', users=users)
@@ -20,10 +20,10 @@ def insertUsers():
         email = request.form['email']
         password = request.form['password']
 
-        check_input = "SELECT name FROM HwUsers.users WHERE name='%s';" % name
+        check_input = "SELECT name FROM ex10db.users WHERE name='%s';" % name
         answer = interact_db(query=check_input, query_type='fetch')
         if len(answer) == 0:
-            query = "insert into HwUsers.users (name, email , password)\
+            query = "insert into ex10db.users (name, email , password)\
                             value ('%s', '%s', '%s');" % (name, email, password)
             interact_db(query=query, query_type='commit')
             # message
@@ -35,17 +35,27 @@ def insertUsers():
     return render_template('assignment10.html', req_method=request.method)
 
 
-@assignment10.route('/update_User', methods=['GET','POST'])
-def updateUsers():
-        id = request.form['id']
+
+@assignment10.route('/update', methods=['GET','POST'])
+def update():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-        query = " UPDATE HwUsers.users SET name='%s',email='%s' ,password='%s' WHERE id='%s';"%\
-                (name, email, password, id)
-        interact_db(query=query, query_type='commit')
-        # message
-        return redirect('/assignment10?p1=User-update')
+        id = request.form['id']
+        interact_db(query=" UPDATE ex10db.users SET name='%s',email='%s' ,password='%s' WHERE id ='%s';"%\
+                             (name,email,password,id), query_type='commit')
+        # session['messages'] = 'User Updated !'
+        return redirect('/assignment10')
+
+#         id = request.form['id']
+#         name = request.form['name']
+#         email = request.form['email']
+#         password = request.form['password']
+#         query = " UPDATE ex10db.users SET name='%s',email='%s' ,password='%s' WHERE id='%s';"%\
+#                 (name, email, password, id)
+#         interact_db(query=query, query_type='commit')
+#         # message
+#         return redirect('/assignment10?p1=User-update')
 
 
 
@@ -53,10 +63,10 @@ def updateUsers():
 def deleteUsers():
 
     userId = request.form['id']
-    check = "SELECT name FROM HwUsers.users WHERE id='%s';" % userId
+    check = "SELECT name FROM ex10db.users WHERE id='%s';" % userId
     answer = interact_db(query=check, query_type='fetch')
     if len(answer) > 0:
-        query = "delete from HwUsers.users where id='%s';" % userId
+        query = "delete from ex10db.users where id='%s';" % userId
         interact_db(query=query, query_type='commit')
         #message
         return redirect('/assignment10?p1=User-delete')
