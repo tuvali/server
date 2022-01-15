@@ -1,0 +1,32 @@
+{% extends 'basic.html' %}
+{% block title %}
+assigment 9
+{% endblock %}
+
+{% block content %}
+    <br>
+
+
+    <h1>Req Frontend (js):</h1>
+    <input name="js" type="number" id="js" placeholder="enter id">
+    <button onclick="fetch_api()"> ask </button>
+    <div> </div>
+
+    <script src="../static/js/josn_users.js" ></script>
+
+    <br>
+    <h1>backend:</h1>
+    <form name="back_end" method="GET" action="/assignment11/api">
+        <input name="id" type="number" id="id" placeholder="enter id">
+        <input type="submit" value="ask">
+    </form>
+     <br>
+    {% if id != '' and id != {} %}
+        <h2>The user you requested: </h2>
+        <h3>data:</h3>
+        <p>id: {{ id }}</p>
+        <p>email: {{ email }}</p>
+        <p>full name : {{ first_name }} , {{ last_name }}</p>
+        <img src="{{ avatar }}" alt="pic"><br>
+    {% endif %}
+{% endblock%}
