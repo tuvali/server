@@ -94,6 +94,28 @@ def json_users():
     print(query_results)
     return jsonify(query_results)
 
+@app.route('/assignment12/restapi_users', defaults={'id': 6})
+@app.route("/assignment12/restapi_users/<int:id>")
+def restapi(id):
+    return_dict = {}
+    query = "select * from ex10db.users where id= '%s';" % id
+    user = interact_db(query=query, query_type='fetch' )
+    if len(user) > 0:
+        return_dict[f'user_{id}'] ={
+            'email': user[0].email,
+            'day created': user[0].create_date,
+            'name': user[0].name,
+            'password': user[0].password,
+            'is found': 'yes'
+        }
+
+    else:
+        return_dict = {
+            'is found': 'no',
+            'error': 'user doesnt exist'
+        }
+    return jsonify(return_dict)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
